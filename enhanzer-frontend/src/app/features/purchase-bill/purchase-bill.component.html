@@ -1,0 +1,19 @@
+<main class="bill-page">
+  <header class="topbar"><div><p class="eyebrow">ENHANZER</p><h1>Purchase bill</h1></div><button class="logout" (click)="logout()">Sign out</button></header>
+  <section class="panel">
+    <h2>Add item</h2>
+    <form [formGroup]="itemForm" (ngSubmit)="addItem()" class="item-form">
+      <label>Item <input formControlName="item" list="items" placeholder="Select item" /><datalist id="items">@for (name of itemNames; track name) { <option [value]="name"></option> }</datalist></label>
+      <label>Batch <select formControlName="batch"><option value="">Select location</option>@for (location of locations; track location.id) { <option [value]="location.locationCode">{{ location.locationName }}</option> }</select></label>
+      <label>Standard cost <input type="number" formControlName="standardCost" min="0" /></label>
+      <label>Quantity <input type="number" formControlName="qty" min="1" /></label>
+      <label>Margin (%) <input type="number" formControlName="margin" min="0" /></label>
+      <label>Standard price <input type="number" formControlName="standardPrice" min="0" /></label>
+      <div class="calculated"><span>Total cost</span><strong>{{ itemForm.controls.totalCost.value | number:'1.2-2' }}</strong></div>
+      <div class="calculated"><span>Total selling</span><strong>{{ itemForm.controls.totalSelling.value | number:'1.2-2' }}</strong></div>
+      <button class="add-button" type="submit">Add to grid</button>
+    </form>
+  </section>
+  <section class="summary"><div><span>Total items</span><strong>{{ itemsTable.length }}</strong></div><div><span>Total quantity</span><strong>{{ totalQuantity }}</strong></div></section>
+  <section class="panel table-panel"><h2>Bill items</h2><div class="table-wrap"><table><thead><tr><th>Item</th><th>Batch</th><th>Qty</th><th>Total cost</th><th>Total selling</th></tr></thead><tbody>@for (item of itemsTable; track $index) { <tr><td>{{ item.item }}</td><td>{{ item.batch }}</td><td>{{ item.qty }}</td><td>{{ item.totalCost | number:'1.2-2' }}</td><td>{{ item.totalSelling | number:'1.2-2' }}</td></tr> } @empty { <tr><td colspan="5" class="empty">No items added yet.</td></tr> }</tbody></table></div></section>
+</main>

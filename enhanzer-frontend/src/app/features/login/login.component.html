@@ -1,0 +1,29 @@
+<main class="login-page">
+  <section class="login-card">
+    <div class="brand-mark">E</div>
+    <p class="eyebrow">ENHANZER</p>
+    <h1>Welcome back</h1>
+    <p class="intro">Sign in to manage your purchase bills.</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="Email" placeholder="you@company.com" />
+      @if (loginForm.controls.Email.touched && loginForm.controls.Email.invalid) {
+        <small class="validation">Enter a valid email address.</small>
+      }
+
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="Password" placeholder="••••••••" />
+      @if (loginForm.controls.Password.touched && loginForm.controls.Password.invalid) {
+        <small class="validation">Password is required.</small>
+      }
+
+      @if (errorMessage) {
+        <p class="error-message">{{ errorMessage }}</p>
+      }
+      <button type="submit" [disabled]="submitting">
+        @if (submitting) { <span class="spinner"></span> Signing in... } @else { Sign in }
+      </button>
+    </form>
+  </section>
+</main>
