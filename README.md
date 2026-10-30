@@ -19,11 +19,12 @@ Run [Database/Database_Setup.sql](./Database/Database_Setup.sql) against SQL Ser
 ```powershell
 cd Enhanzer.API
 dotnet restore
-dotnet run
+dotnet run --launch-profile https
 ```
 
-The API uses `https://localhost:7051` by default. Update
-`enhanzer-frontend/src/environments/environment.ts` if the API uses a different port.
+The HTTPS API is available at `https://localhost:7051`. If you run plain
+`dotnet run`, .NET selects the HTTP profile and uses `http://localhost:5106`
+instead.
 
 ## Run the frontend
 
