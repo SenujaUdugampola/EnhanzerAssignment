@@ -1,5 +1,11 @@
 # Enhanzer Assignment
 
+From `C:\11AD\Enhanzer-Demo`, enter the assignment folder first:
+
+```powershell
+cd EnhanzerAssignment
+```
+
 ## Prerequisites
 
 - .NET 8 SDK
