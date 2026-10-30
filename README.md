@@ -19,12 +19,17 @@ Run [Database/Database_Setup.sql](./Database/Database_Setup.sql) against SQL Ser
 ```powershell
 cd Enhanzer.API
 dotnet restore
+dotnet dev-certs https --trust
 dotnet run --launch-profile https
 ```
 
 The HTTPS API is available at `https://localhost:7051`. If you run plain
 `dotnet run`, .NET selects the HTTP profile and uses `http://localhost:5106`
 instead.
+
+Open `https://localhost:7051/` or `https://localhost:7051/swagger` to view the
+API. If Windows shows a certificate prompt, accept it after running the
+`dotnet dev-certs` command.
 
 ## Run the frontend
 
