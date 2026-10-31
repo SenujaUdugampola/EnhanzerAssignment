@@ -11,8 +11,14 @@ cd EnhanzerAssignment
 - .NET 8 SDK
 - Node.js and Angular CLI
 - SQL Server
+- SQL Server LocalDB (the default development connection uses `MSSQLLocalDB`)
 
-Run [Database/Database_Setup.sql](./Database/Database_Setup.sql) against SQL Server before starting the API.
+Run [Database/Database_Setup.sql](./Database/Database_Setup.sql) against SQL Server
+before starting the API. For the default LocalDB setup, start the instance first:
+
+```powershell
+sqllocaldb start MSSQLLocalDB
+```
 
 ## Run the backend
 

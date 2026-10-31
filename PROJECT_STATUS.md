@@ -66,7 +66,7 @@ EnhanzerAssignment/
 
 - HTTPS profile: `https://localhost:7051`
 - HTTP profile: `http://localhost:5106`
-- SQL Server database: `EnhanzerDB`
+- SQL Server database: `EnhanzerDB` on `(localdb)\MSSQLLocalDB` for development
 - Entity Framework table: `dbo.Location_Details`
 - Connection string and JWT settings are in `Enhanzer.API/appsettings.json`.
 
@@ -157,6 +157,7 @@ npm run build
 
 - The external login endpoint requires network access:
   `https://ez-staging-api.azurewebsites.net/api/External_Api/POS_Api/Invoke`.
-- SQL Server must be running and reachable using the configured connection string.
+- LocalDB must be installed and the `MSSQLLocalDB` instance must be running for the
+  default development connection. Start it with `sqllocaldb start MSSQLLocalDB`.
 - The HTTPS developer certificate must be trusted locally.
 - Generated `bin/`, `obj/`, and Angular build output should not be treated as source changes.
