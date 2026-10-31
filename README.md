@@ -37,6 +37,28 @@ Open `https://localhost:7051/` or `https://localhost:7051/swagger` to view the
 API. If Windows shows a certificate prompt, accept it after running the
 `dotnet dev-certs` command.
 
+## Test the protected locations endpoint
+
+`GET /api/locations` requires the JWT returned by the login endpoint. First
+call `POST /api/auth/login` with valid external-service credentials, copy the
+returned `token`, and include it as a bearer token:
+
+```powershell
+$login = Invoke-RestMethod `
+  -Uri "https://localhost:7051/api/auth/login" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"email":"your-email","password":"your-password"}'
+
+Invoke-RestMethod `
+  -Uri "https://localhost:7051/api/locations" `
+  -Headers @{ Authorization = "Bearer $($login.token)" }
+```
+
+In Swagger, call the login endpoint first, click **Authorize**, enter the
+returned token, and then call **GET /api/locations**. A request without an
+`Authorization: Bearer <token>` header correctly returns `401 Unauthorized`.
+
 ## Run the frontend
 
 ```powershell
