@@ -16,7 +16,7 @@
       <label class="wide-field">Batch
         <select formControlName="batch">
           <option value="">Select location</option>
-          @for (location of locations; track location.id) {
+          @for (location of locations(); track location.id) {
             <option [value]="location.locationCode">{{ location.locationName }}</option>
           }
         </select>

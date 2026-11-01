@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -35,7 +35,7 @@ export class PurchaseBillComponent {
     totalCost: [{ value: 0, disabled: true }],
     totalSelling: [{ value: 0, disabled: true }]
   });
-  locations: LocationDetail[] = [];
+  readonly locations = signal<LocationDetail[]>([]);
   itemsTable: BillItem[] = [];
 
   constructor() {
@@ -51,8 +51,8 @@ export class PurchaseBillComponent {
       }, { emitEvent: false });
     });
     this.locationService.getLocations().subscribe({
-      next: locations => this.locations = locations,
-      error: () => this.locations = []
+      next: locations => this.locations.set(locations),
+      error: () => this.locations.set([])
     });
   }
 
