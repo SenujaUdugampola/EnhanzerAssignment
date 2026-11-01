@@ -161,3 +161,5 @@ C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\Enha
 C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\Enhanzer.API.runtimeconfig.json
 C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\Enhanzer.API.dll
 C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\Enhanzer.API.pdb
+C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Debug\net8.0\Enhanzer.API.sourcelink.json
+C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\bin\Debug\net8.0\Enhanzer.API.staticwebassets.runtime.json
