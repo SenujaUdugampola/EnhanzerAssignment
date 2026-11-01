@@ -44,11 +44,11 @@ export class PurchaseBillComponent {
     this.itemForm.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(values => {
       const standardCost = values.standardCost ?? 0;
       const qty = values.qty ?? 0;
-      const margin = values.margin ?? 0;
+      const discount = values.discount ?? 0;
       const standardPrice = values.standardPrice ?? 0;
       const cost = standardCost * qty;
       this.itemForm.patchValue({
-        totalCost: cost - cost * (margin / 100),
+        totalCost: cost - cost * (discount / 100),
         totalSelling: standardPrice * qty
       }, { emitEvent: false });
     });
