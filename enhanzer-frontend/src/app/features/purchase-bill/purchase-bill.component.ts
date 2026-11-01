@@ -7,8 +7,8 @@ import { LocationDetail, LocationService } from '../../core/services/location.se
 import { AuthService } from '../../core/services/auth.service';
 
 interface BillItem {
-  item: string; batch: string; standardCost: number; qty: number; margin: number;
-  standardPrice: number; totalCost: number; totalSelling: number;
+  item: string; batch: string; standardCost: number; standardPrice: number; margin: number;
+  qty: number; freeQty: number; discount: number; totalCost: number; totalSelling: number;
 }
 
 @Component({
@@ -29,9 +29,11 @@ export class PurchaseBillComponent {
     item: ['', Validators.required],
     batch: ['', Validators.required],
     standardCost: [0, [Validators.required, Validators.min(0)]],
-    qty: [1, [Validators.required, Validators.min(1)]],
-    margin: [0, [Validators.required, Validators.min(0)]],
     standardPrice: [0, [Validators.required, Validators.min(0)]],
+    margin: [0, [Validators.required, Validators.min(0)]],
+    qty: [1, [Validators.required, Validators.min(1)]],
+    freeQty: [0, [Validators.required, Validators.min(0)]],
+    discount: [0, [Validators.required, Validators.min(0)]],
     totalCost: [{ value: 0, disabled: true }],
     totalSelling: [{ value: 0, disabled: true }]
   });
@@ -67,7 +69,10 @@ export class PurchaseBillComponent {
     }
     const values = this.itemForm.getRawValue();
     this.itemsTable.push(values);
-    this.itemForm.reset({ item: '', batch: '', standardCost: 0, qty: 1, margin: 0, standardPrice: 0, totalCost: 0, totalSelling: 0 });
+    this.itemForm.reset({
+      item: '', batch: '', standardCost: 0, standardPrice: 0, margin: 0, qty: 1,
+      freeQty: 0, discount: 0, totalCost: 0, totalSelling: 0
+    });
   }
 
   logout(): void {

@@ -35,7 +35,7 @@ h2 { margin-bottom: 1.5rem; font-size: 1.1rem; }
 
 .item-form {
   display: grid;
-  grid-template-columns: repeat(14, minmax(0, 1fr));
+  grid-template-columns: repeat(18, minmax(0, 1fr));
   gap: 1.15rem 1rem;
   align-items: end;
 }

@@ -22,9 +22,11 @@
         </select>
       </label>
       <label>Standard cost <input type="number" formControlName="standardCost" min="0" /></label>
-      <label>Quantity <input type="number" formControlName="qty" min="1" /></label>
-      <label>Margin (%) <input type="number" formControlName="margin" min="0" /></label>
       <label>Standard price <input type="number" formControlName="standardPrice" min="0" /></label>
+      <label>Margin (%) <input type="number" formControlName="margin" min="0" /></label>
+      <label>Quantity <input type="number" formControlName="qty" min="1" /></label>
+      <label>Free quantity <input type="number" formControlName="freeQty" min="0" /></label>
+      <label>Discount (%) <input type="number" formControlName="discount" min="0" /></label>
       <div class="totals-row">
         <div class="calculated">
           <span>Total cost</span>
@@ -46,16 +48,18 @@
     <h2>Bill items</h2>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Item</th><th>Batch</th><th>Qty</th><th>Total cost</th><th>Total selling</th></tr></thead>
+        <thead><tr><th>Item</th><th>Batch</th><th>Standard cost</th><th>Standard price</th><th>Margin</th><th>Qty</th><th>Free qty</th><th>Discount</th><th>Total cost</th><th>Total selling</th></tr></thead>
         <tbody>
           @for (item of itemsTable; track $index) {
             <tr>
-              <td>{{ item.item }}</td><td>{{ item.batch }}</td><td>{{ item.qty }}</td>
+              <td>{{ item.item }}</td><td>{{ item.batch }}</td><td>Rs. {{ item.standardCost | number:'1.2-2' }}</td>
+              <td>Rs. {{ item.standardPrice | number:'1.2-2' }}</td><td>{{ item.margin }}%</td>
+              <td>{{ item.qty }}</td><td>{{ item.freeQty }}</td><td>{{ item.discount }}%</td>
               <td>Rs. {{ item.totalCost | number:'1.2-2' }}</td>
               <td>Rs. {{ item.totalSelling | number:'1.2-2' }}</td>
             </tr>
           } @empty {
-            <tr><td colspan="5">
+            <tr><td colspan="10">
               <div class="empty">
                 <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m20.25 7.5-8.25-4.5-8.25 4.5m16.5 0v9L12 21l-8.25-4.5v-9m16.5 0L12 12m0 9v-9m0 0L3.75 7.5M16.5 5.25l-8.25 4.5"/>
