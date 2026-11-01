@@ -148,3 +148,16 @@ C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Debug\net8.0\refint\En
 C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Debug\net8.0\Enhanzer.API.pdb
 C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Debug\net8.0\Enhanzer.API.genruntimeconfig.cache
 C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Debug\net8.0\ref\Enhanzer.API.dll
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\appsettings.Development.json
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\appsettings.json
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\bin\Debug\net8.0\appsettings.json
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\bin\Debug\net8.0\Enhanzer.API.deps.json
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\bin\Debug\net8.0\Enhanzer.API.runtimeconfig.json
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\bin\Debug\net8.0\Enhanzer.API.staticwebassets.endpoints.json
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\Enhanzer.API.staticwebassets.endpoints.json
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\Enhanzer.API.exe
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\Enhanzer.API.deps.json
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\Enhanzer.API.runtimeconfig.json
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\Enhanzer.API.dll
+C:\Users\Lenovo™\AppData\Local\Temp\enhanzer-api-build-check\Debug\net8.0\Enhanzer.API.pdb

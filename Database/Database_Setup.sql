@@ -17,3 +17,14 @@ BEGIN
     );
 END
 GO
+
+USE [EnhanzerDB];
+GO
+
+INSERT INTO [dbo].[Location_Details] ([Location_Code], [Location_Name])
+VALUES 
+    ('LOC001', 'Main Warehouse'),
+    ('LOC002', 'Colombo Branch'),
+    ('LOC003', 'Kandy Store'),
+    ('LOC004', 'Galle Outlet');
+GO
