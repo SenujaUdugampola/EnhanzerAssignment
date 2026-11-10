@@ -181,6 +181,8 @@ Publish the API project using the
 profile from Visual Studio or MSBuild. The publish target automatically runs
 the Angular production bundle, and copies the generated
 dashboard and purchase pages into the ASP.NET publish output.
+The bundle is copied into `wwwroot`, which is the directory served by
+ASP.NET Core and IIS.
 
 After deployment, force-refresh the browser with **Ctrl + F5**. If the old
 page still appears, clear the site cache or open the site in a private window

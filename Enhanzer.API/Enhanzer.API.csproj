@@ -34,9 +34,9 @@
   <Target Name="BuildFrontendForPublish" BeforeTargets="ComputeFilesToPublish">
     <Exec WorkingDirectory="$(FrontendRoot)" Command="npm run build -- --configuration production" />
     <ItemGroup>
-      <FrontendDistFiles Include="$(FrontendRoot)\dist\enhanzer-frontend\**\*" />
+      <FrontendDistFiles Include="$(FrontendRoot)\dist\enhanzer-frontend\browser\**\*" />
       <ResolvedFileToPublish Include="@(FrontendDistFiles)">
-        <RelativePath>%(FrontendDistFiles.RecursiveDir)%(FrontendDistFiles.Filename)%(FrontendDistFiles.Extension)</RelativePath>
+        <RelativePath>wwwroot\%(FrontendDistFiles.RecursiveDir)%(FrontendDistFiles.Filename)%(FrontendDistFiles.Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </ResolvedFileToPublish>
     </ItemGroup>
