@@ -1,6 +1,10 @@
 USE EnhanzerDB;
 GO
 
+SET ANSI_NULLS ON;
+SET QUOTED_IDENTIFIER ON;
+GO
+
 IF OBJECT_ID(N'dbo.Purchase_Bill_Number', N'SO') IS NULL
 BEGIN
     EXEC(N'CREATE SEQUENCE dbo.Purchase_Bill_Number

@@ -11,7 +11,7 @@ Entity Framework Core, and SQL Server.
 - SQL Server LocalDB
 - SQL Server command-line tools (`sqlcmd`) or SQL Server Management Studio
 
-The default development database connection is:
+The local development database connection is:
 
 ```text
 (localdb)\MSSQLLocalDB
@@ -72,8 +72,13 @@ ng serve
 
 Open the application at `http://localhost:4200`.
 
-The frontend calls `https://localhost:7051/api`. If the backend port changes,
-update [environment.ts](./enhanzer-frontend/src/environments/environment.ts).
+Production uses the relative `/api` path. During local `ng serve`, the
+development environment calls `http://localhost:5106/api`. If the backend
+port changes, update the environment files in
+[enhanzer-frontend/src/environments](./enhanzer-frontend/src/environments).
+
+Production builds use the relative `/api` path for deployment behind the
+ASP.NET application.
 
 ## Navigating the pages
 
