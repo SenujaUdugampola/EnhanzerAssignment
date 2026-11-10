@@ -4,7 +4,10 @@
       <p class="eyebrow">ENHANZER</p>
       <h1>Purchase bill</h1>
     </div>
-    <button class="logout" (click)="logout()">Sign out</button>
+    <div class="header-actions">
+      <button class="dashboard-link" type="button" (click)="goToDashboard()">Dashboard</button>
+      <button class="logout" type="button" (click)="logout()">Sign out</button>
+    </div>
   </header>
   <section class="panel">
     <h2>Add item</h2>

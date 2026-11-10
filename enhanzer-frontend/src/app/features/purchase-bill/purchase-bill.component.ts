@@ -114,4 +114,8 @@ export class PurchaseBillComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  goToDashboard(): void {
+    this.router.navigate(['/dashboard']);
+  }
 }

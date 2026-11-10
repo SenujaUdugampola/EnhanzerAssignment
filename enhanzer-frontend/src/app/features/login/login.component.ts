@@ -31,7 +31,7 @@ export class LoginComponent {
     this.errorMessage = '';
     const { Email, Password } = this.loginForm.getRawValue();
     this.authService.login(Email, Password).subscribe({
-      next: () => this.router.navigate(['/purchase-bill']),
+      next: () => this.router.navigate(['/dashboard']),
       error: error => {
         this.submitting = false;
         this.errorMessage = error.error?.message ?? 'Unable to sign in. Please try again.';

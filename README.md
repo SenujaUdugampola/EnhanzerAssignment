@@ -1,6 +1,6 @@
 # Enhanzer Assignment
 
-Two-page purchase-bill application built with Angular 21, ASP.NET Core 8,
+Three-page purchase-bill application built with Angular 21, ASP.NET Core 8,
 Entity Framework Core, and SQL Server.
 
 ## Prerequisites
@@ -77,20 +77,22 @@ update [environment.ts](./enhanzer-frontend/src/environments/environment.ts).
 
 ## Navigating the pages
 
-The application has two pages:
+The application has three pages:
 
 1. Open `http://localhost:4200/login` (or the root URL `/`).
 2. Enter valid credentials from the external POS login service and select
    **Sign in**.
-3. Open `http://localhost:4200/purchase-bill`, or use the purchase-bill page
-   reached by the application after login.
-4. Select an item, choose a location in **Batch**, enter the cost, price,
+3. After login, the dashboard opens at `http://localhost:4200/dashboard`.
+4. Select **New purchase bill** or **Purchase bills** to open
+   `http://localhost:4200/purchase-bill`.
+5. Select an item, choose a location in **Batch**, enter the cost, price,
    quantities, margin, and discount, then select **Add to grid**.
-5. Add any additional items and select **Save purchase**.
-6. Select **Sign out** to return to the login page.
+6. Add any additional items and select **Save purchase**.
+7. Select **Dashboard** to return to the dashboard or **Sign out** to return
+   to the login page.
 
-The `/purchase-bill` route is protected. Without a valid JWT, it redirects to
-`/login`.
+The `/dashboard` and `/purchase-bill` routes are protected. Without a valid
+JWT, they redirect to `/login`.
 
 ## Authentication flow
 
@@ -131,6 +133,7 @@ Swagger, call the login endpoint, copy the returned token, select
 
 - Reactive login form with email and password validation
 - JWT storage and HTTP authorization interceptor
+- Protected dashboard route with purchase-bill navigation
 - Protected purchase-bill route
 - Item autocomplete for Mango, Apple, Banana, Orange, Grapes, Kiwi, and
   Strawberry

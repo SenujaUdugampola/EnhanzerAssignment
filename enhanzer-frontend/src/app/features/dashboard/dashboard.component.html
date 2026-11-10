@@ -1,0 +1,36 @@
+<main class="dashboard-page">
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">ENHANZER</p>
+      <h1>Dashboard</h1>
+      <p class="subtitle">Manage your purchase workflow from one place.</p>
+    </div>
+    <button class="logout" type="button" (click)="logout()">Sign out</button>
+  </header>
+
+  <section class="welcome-card">
+    <div>
+      <p class="eyebrow">PURCHASE MANAGEMENT</p>
+      <h2>Create a new purchase bill</h2>
+      <p>Add items, review totals, and save the purchase bill securely.</p>
+    </div>
+    <a class="primary-action" routerLink="/purchase-bill">New purchase bill</a>
+  </section>
+
+  <section class="dashboard-grid">
+    <a class="feature-card" routerLink="/purchase-bill">
+      <span class="card-icon">+</span>
+      <h2>Purchase bills</h2>
+      <p>Create and submit a purchase bill with item, batch, price, quantity,
+        and discount details.</p>
+      <span class="card-link">Open purchase bills</span>
+    </a>
+    <div class="feature-card">
+      <span class="card-icon">✓</span>
+      <h2>Locations</h2>
+      <p>Choose from the locations loaded from the authenticated POS service
+        when creating a purchase bill.</p>
+      <span class="card-link">Available in purchase bills</span>
+    </div>
+  </section>
+</main>
