@@ -1,0 +1,4 @@
+wwwroot\favicon.ico
+wwwroot\index.html
+wwwroot\main-NGXHYRSU.js
+wwwroot\styles-6SQ6GU4L.css

@@ -5,6 +5,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocationDetail, LocationService } from '../../core/services/location.service';
 import { AuthService } from '../../core/services/auth.service';
+import { PurchaseService } from '../../core/services/purchase.service';
 
 interface BillItem {
   item: string; batch: string; standardCost: number; standardPrice: number; margin: number;
@@ -21,6 +22,7 @@ export class PurchaseBillComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly locationService = inject(LocationService);
   private readonly authService = inject(AuthService);
+  private readonly purchaseService = inject(PurchaseService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -39,6 +41,9 @@ export class PurchaseBillComponent {
   });
   readonly locations = signal<LocationDetail[]>([]);
   itemsTable: BillItem[] = [];
+  isSaving = false;
+  message = '';
+  errorMessage = '';
 
   constructor() {
     this.itemForm.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(values => {
@@ -72,6 +77,36 @@ export class PurchaseBillComponent {
     this.itemForm.reset({
       item: '', batch: '', standardCost: 0, standardPrice: 0, margin: 0, qty: 1,
       freeQty: 0, discount: 0, totalCost: 0, totalSelling: 0
+    });
+  }
+
+  savePurchase(): void {
+    if (this.itemsTable.length === 0 || this.isSaving) {
+      return;
+    }
+
+    this.isSaving = true;
+    this.message = '';
+    this.errorMessage = '';
+    this.purchaseService.createPurchase(this.itemsTable.map(item => ({
+      itemName: item.item,
+      batchCode: item.batch,
+      standardCost: item.standardCost,
+      standardPrice: item.standardPrice,
+      marginPercent: item.margin,
+      quantity: item.qty,
+      freeQuantity: item.freeQty,
+      discountPercent: item.discount
+    }))).subscribe({
+      next: response => {
+        this.message = `Purchase ${response.billNo} saved successfully.`;
+        this.itemsTable = [];
+        this.isSaving = false;
+      },
+      error: error => {
+        this.errorMessage = error.error?.message ?? 'Could not save the purchase.';
+        this.isSaving = false;
+      }
     });
   }
 
