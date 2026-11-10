@@ -22,6 +22,15 @@
     <FrontendRoot>$(MSBuildProjectDirectory)\..\enhanzer-frontend</FrontendRoot>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings.Development.json">
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
   <Target Name="BuildFrontendForPublish" BeforeTargets="ComputeFilesToPublish">
     <Exec WorkingDirectory="$(FrontendRoot)" Command="npm run build -- --configuration production" />
     <ItemGroup>

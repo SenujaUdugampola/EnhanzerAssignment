@@ -7,7 +7,8 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtSecret = builder.Configuration["Jwt:Secret"]
-    ?? throw new InvalidOperationException("Jwt:Secret is not configured.");
+    ?? throw new InvalidOperationException(
+        "Jwt:Secret is not configured. Set Jwt:Secret in appsettings.json or the hosting environment.");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
