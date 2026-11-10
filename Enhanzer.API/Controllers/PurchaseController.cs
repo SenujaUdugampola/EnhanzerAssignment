@@ -21,11 +21,26 @@ public class PurchaseController(AppDbContext dbContext) : ControllerBase
             .OrderByDescending(bill => bill.PurchaseDate)
             .ThenByDescending(bill => bill.Id)
             .Take(5)
+            .Select(bill => new
+            {
+                bill.Id,
+                bill.PurchaseDate,
+                Items = bill.Items.Select(item => new
+                {
+                    item.StandardCost,
+                    item.Quantity,
+                    item.DiscountPercent
+                })
+            })
+            .ToListAsync(cancellationToken);
+
+        var latestOrderData = latestOrders
             .Select(bill => new LatestPurchaseOrder(
                 bill.Id,
-                bill.Items.Sum(item => item.TotalCost),
+                bill.Items.Sum(item =>
+                    item.StandardCost * item.Quantity * (1 - item.DiscountPercent / 100)),
                 bill.Items.Count()))
-            .ToListAsync(cancellationToken);
+            .ToList();
 
         var oldestItems = await dbContext.PurchaseBillItems
             .AsNoTracking()
@@ -48,7 +63,7 @@ public class PurchaseController(AppDbContext dbContext) : ControllerBase
             .OrderByDescending(item => item.Quantity)
             .ToListAsync(cancellationToken);
 
-        return Ok(new PurchaseDashboardResponse(latestOrders, oldestItems, itemQuantities));
+        return Ok(new PurchaseDashboardResponse(latestOrderData, oldestItems, itemQuantities));
     }
 
     [HttpPost]

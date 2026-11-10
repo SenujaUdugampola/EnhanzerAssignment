@@ -3,6 +3,7 @@ import { DecimalPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError, finalize, throwError, timeout } from 'rxjs';
 import { LocationDetail, LocationService } from '../../core/services/location.service';
 import { AuthService } from '../../core/services/auth.service';
 import { PurchaseService } from '../../core/services/purchase.service';
@@ -97,16 +98,22 @@ export class PurchaseBillComponent {
       quantity: item.qty,
       freeQuantity: item.freeQty,
       discountPercent: item.discount
-    }))).subscribe({
+    }))).pipe(
+      timeout(20000),
+      catchError(error => {
+        const message = error.name === 'TimeoutError'
+          ? 'The server took too long to respond. Please try again.'
+          : error.error?.message ?? 'Could not save the purchase.';
+        this.errorMessage = message;
+        return throwError(() => error);
+      }),
+      finalize(() => this.isSaving = false)
+    ).subscribe({
       next: response => {
         this.message = `Purchase ${response.billNo} saved successfully.`;
         this.itemsTable = [];
-        this.isSaving = false;
       },
-      error: error => {
-        this.errorMessage = error.error?.message ?? 'Could not save the purchase.';
-        this.isSaving = false;
-      }
+      error: () => undefined
     });
   }
 

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { catchError, finalize, throwError, timeout } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { DashboardService, ItemQuantitySummary, PurchaseDashboard } from '../../core/services/dashboard.service';
 
@@ -24,15 +25,20 @@ export class DashboardComponent {
   isLoading = true;
 
   constructor() {
-    this.dashboardService.getPurchaseDashboard().subscribe({
+    this.dashboardService.getPurchaseDashboard().pipe(
+      timeout(20000),
+      catchError(error => {
+        this.errorMessage = error.name === 'TimeoutError'
+          ? 'The dashboard request timed out. Please try again.'
+          : 'Dashboard data could not be loaded.';
+        return throwError(() => error);
+      }),
+      finalize(() => this.isLoading = false)
+    ).subscribe({
       next: dashboard => {
         this.dashboard = dashboard;
-        this.isLoading = false;
       },
-      error: () => {
-        this.errorMessage = 'Dashboard data could not be loaded.';
-        this.isLoading = false;
-      }
+      error: () => undefined
     });
   }
 
