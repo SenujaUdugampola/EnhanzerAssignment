@@ -1,4 +1,4 @@
-USE db77278;
+USE EnhanzerDB;
 GO
 
 IF OBJECT_ID(N'dbo.Purchase_Bill_Number', N'SO') IS NULL
