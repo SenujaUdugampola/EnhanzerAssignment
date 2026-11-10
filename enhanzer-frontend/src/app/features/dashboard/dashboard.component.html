@@ -33,4 +33,100 @@
       <span class="card-link">Available in purchase bills</span>
     </div>
   </section>
+
+  @if (isLoading) {
+    <p class="status-message">Loading purchase dashboard...</p>
+  } @else if (errorMessage) {
+    <p class="error-message" role="alert">{{ errorMessage }}</p>
+  } @else {
+    <section class="widget-grid">
+      <article class="widget">
+        <div class="widget-heading">
+          <div>
+            <p class="widget-kicker">01 WIDGET</p>
+            <h2>Latest purchase orders</h2>
+          </div>
+          <span class="widget-type">Table view</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>Net amount</th><th>No. of items</th></tr></thead>
+            <tbody>
+              @for (order of dashboard.latestOrders; track order.id) {
+                <tr>
+                  <td>#{{ order.id }}</td>
+                  <td>Rs. {{ order.netAmount | number:'1.2-2' }}</td>
+                  <td>{{ order.itemCount }}</td>
+                </tr>
+              } @empty {
+                <tr><td colspan="3" class="empty-cell">No purchase orders yet.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="widget">
+        <div class="widget-heading">
+          <div>
+            <p class="widget-kicker">02 WIDGET</p>
+            <h2>Oldest purchase items</h2>
+          </div>
+          <span class="widget-type">List view</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Purchase order ID</th><th>Item name</th><th>Quantity</th></tr></thead>
+            <tbody>
+              @for (item of dashboard.oldestItems; track item.purchaseOrderId + '-' + $index) {
+                <tr>
+                  <td>#{{ item.purchaseOrderId }}</td>
+                  <td>{{ item.itemName }}</td>
+                  <td>{{ item.quantity | number:'1.0-3' }}</td>
+                </tr>
+              } @empty {
+                <tr><td colspan="3" class="empty-cell">No purchase items yet.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="widget chart-widget">
+        <div class="widget-heading">
+          <div>
+            <p class="widget-kicker">03 WIDGET</p>
+            <h2>Quantity by item</h2>
+          </div>
+          <span class="widget-type">Donut chart</span>
+        </div>
+        <div class="chart-content">
+          <div class="donut-chart" [style.background]="donutBackground">
+            <div class="donut-hole">
+              <strong>{{ totalChartQuantity | number:'1.0-3' }}</strong>
+              <span>quantity</span>
+            </div>
+          </div>
+          <div class="chart-legend">
+            @for (item of dashboard.itemQuantities; track item.itemName; let i = $index) {
+              <div class="legend-item">
+                <span class="legend-dot" [style.background]="chartColor(i)"></span>
+                <span>{{ item.itemName }}</span>
+                <strong>{{ item.quantity | number:'1.0-3' }}</strong>
+              </div>
+            } @empty {
+              <p class="empty-cell">No item quantities yet.</p>
+            }
+          </div>
+        </div>
+      </article>
+    </section>
+  }
+
+  <footer class="dashboard-footer">
+    <span>Phone: (+94) 113 711 600</span>
+    <span>Email: info@enhanzer.com</span>
+    <span>Reg No: PV 95812</span>
+    <span>Web: www.enhanzer.com</span>
+  </footer>
 </main>

@@ -127,6 +127,7 @@ Example request body:
 |---|---|---|---|
 | POST | `/api/auth/login` | None | Authenticate and return a JWT |
 | GET | `/api/locations` | Bearer JWT | Return saved locations |
+| GET | `/api/purchases/dashboard` | Bearer JWT | Return dashboard widget data |
 | POST | `/api/purchases` | Bearer JWT | Create a purchase bill with its items |
 | GET | `/api/purchases/{id}` | Bearer JWT | Return a saved purchase bill |
 
@@ -139,6 +140,7 @@ Swagger, call the login endpoint, copy the returned token, select
 - Reactive login form with email and password validation
 - JWT storage and HTTP authorization interceptor
 - Protected dashboard route with purchase-bill navigation
+- Dashboard widgets for latest orders, oldest order items, and item quantities
 - Protected purchase-bill route
 - Item autocomplete for Mango, Apple, Banana, Orange, Grapes, Kiwi, and
   Strawberry

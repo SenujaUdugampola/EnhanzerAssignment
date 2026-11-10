@@ -38,3 +38,22 @@ public sealed record CreatePurchaseBillItemRequest(
     decimal Quantity,
     decimal FreeQuantity,
     decimal DiscountPercent);
+
+public sealed record PurchaseDashboardResponse(
+    IReadOnlyCollection<LatestPurchaseOrder> LatestOrders,
+    IReadOnlyCollection<OldestPurchaseItem> OldestItems,
+    IReadOnlyCollection<ItemQuantitySummary> ItemQuantities);
+
+public sealed record LatestPurchaseOrder(
+    long Id,
+    decimal NetAmount,
+    int ItemCount);
+
+public sealed record OldestPurchaseItem(
+    long PurchaseOrderId,
+    string ItemName,
+    decimal Quantity);
+
+public sealed record ItemQuantitySummary(
+    string ItemName,
+    decimal Quantity);

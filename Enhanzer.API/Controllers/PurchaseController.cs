@@ -12,6 +12,45 @@ namespace Enhanzer.API.Controllers;
 [Authorize]
 public class PurchaseController(AppDbContext dbContext) : ControllerBase
 {
+    [HttpGet("dashboard")]
+    public async Task<ActionResult<PurchaseDashboardResponse>> GetDashboard(
+        CancellationToken cancellationToken)
+    {
+        var latestOrders = await dbContext.PurchaseBills
+            .AsNoTracking()
+            .OrderByDescending(bill => bill.PurchaseDate)
+            .ThenByDescending(bill => bill.Id)
+            .Take(5)
+            .Select(bill => new LatestPurchaseOrder(
+                bill.Id,
+                bill.Items.Sum(item => item.TotalCost),
+                bill.Items.Count()))
+            .ToListAsync(cancellationToken);
+
+        var oldestItems = await dbContext.PurchaseBillItems
+            .AsNoTracking()
+            .OrderBy(item => item.PurchaseBill.PurchaseDate)
+            .ThenBy(item => item.PurchaseBillId)
+            .ThenBy(item => item.Id)
+            .Take(10)
+            .Select(item => new OldestPurchaseItem(
+                item.PurchaseBillId,
+                item.ItemName,
+                item.Quantity))
+            .ToListAsync(cancellationToken);
+
+        var itemQuantities = await dbContext.PurchaseBillItems
+            .AsNoTracking()
+            .GroupBy(item => item.ItemName)
+            .Select(group => new ItemQuantitySummary(
+                group.Key,
+                group.Sum(item => item.Quantity)))
+            .OrderByDescending(item => item.Quantity)
+            .ToListAsync(cancellationToken);
+
+        return Ok(new PurchaseDashboardResponse(latestOrders, oldestItems, itemQuantities));
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create(
         CreatePurchaseBillRequest request,
