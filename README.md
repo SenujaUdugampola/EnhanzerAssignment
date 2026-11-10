@@ -167,6 +167,18 @@ cd .\enhanzer-frontend
 npm run build
 ```
 
+### Deploy the latest frontend and API
+
+Publish the API project using the
+[`site103935-WebDeploy.pubxml`](./Enhanzer.API/Properties/PublishProfiles/site103935-WebDeploy.pubxml)
+profile from Visual Studio or MSBuild. The publish target automatically runs
+the Angular production bundle, and copies the generated
+dashboard and purchase pages into the ASP.NET publish output.
+
+After deployment, force-refresh the browser with **Ctrl + F5**. If the old
+page still appears, clear the site cache or open the site in a private window
+to rule out a cached JavaScript bundle.
+
 ## Troubleshooting
 
 ### SQL Server connection error
@@ -196,3 +208,10 @@ dotnet dev-certs https --trust
 
 The login flow depends on network access to the external POS API. Confirm
 internet access and use valid external-service credentials.
+
+### Web Deploy returns `401 Unauthorized`
+
+The Web Deploy profile requires valid credentials for the hosting account.
+Update the publish profile credentials in Visual Studio or the hosting
+provider's publish settings, then publish the API project again. Do not commit
+the deployment password to the repository.

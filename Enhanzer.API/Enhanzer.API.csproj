@@ -18,4 +18,18 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.23.0" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <FrontendRoot>$(MSBuildProjectDirectory)\..\enhanzer-frontend</FrontendRoot>
+  </PropertyGroup>
+
+  <Target Name="BuildFrontendForPublish" BeforeTargets="ComputeFilesToPublish">
+    <Exec WorkingDirectory="$(FrontendRoot)" Command="npm run build -- --configuration production" />
+    <ItemGroup>
+      <FrontendDistFiles Include="$(FrontendRoot)\dist\enhanzer-frontend\**\*" />
+      <ResolvedFileToPublish Include="@(FrontendDistFiles)">
+        <RelativePath>%(FrontendDistFiles.RecursiveDir)%(FrontendDistFiles.Filename)%(FrontendDistFiles.Extension)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
 </Project>

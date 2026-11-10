@@ -144,7 +144,6 @@ C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Release\net8.0\staticw
 C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Release\net8.0\staticwebassets.development.json
 C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Release\net8.0\staticwebassets.build.endpoints.json
 C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Release\net8.0\swae.build.ex.cache
-C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Release\net8.0\staticwebassets.upToDateCheck.txt
 C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Release\net8.0\Enhanzer.89C841EB.Up2Date
 C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Release\net8.0\Enhanzer.API.dll
 C:\11AD\Enhanzer-Demo\EnhanzerAssignment\Enhanzer.API\obj\Release\net8.0\refint\Enhanzer.API.dll
