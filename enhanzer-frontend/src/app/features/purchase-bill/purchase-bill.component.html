@@ -43,15 +43,13 @@
   <section class="summary">
     <div><span>Total items</span><strong>{{ itemsTable.length }}</strong></div>
     <div><span>Total quantity</span><strong>{{ totalQuantity }}</strong></div>
+    <button class="save-button" type="button" [disabled]="itemsTable.length === 0 || isSaving"
+      (click)="savePurchase()">{{ isSaving ? 'Saving...' : 'Save purchase' }}</button>
   </section>
   @if (message) { <p class="success-message" role="status">{{ message }}</p> }
   @if (errorMessage) { <p class="error-message" role="alert">{{ errorMessage }}</p> }
   <section class="panel table-panel">
     <h2>Bill items</h2>
-    <div class="table-actions">
-      <button class="save-button" type="button" [disabled]="itemsTable.length === 0 || isSaving"
-        (click)="savePurchase()">{{ isSaving ? 'Saving...' : 'Save purchase' }}</button>
-    </div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Item</th><th>Batch</th><th>Standard cost</th><th>Standard price</th><th>Margin</th><th>Qty</th><th>Free qty</th><th>Discount</th><th>Total cost</th><th>Total selling</th></tr></thead>

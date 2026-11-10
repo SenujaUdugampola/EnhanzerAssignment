@@ -120,6 +120,7 @@ button {
 
 .summary {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   gap: 1rem;
   margin-bottom: 1.5rem;
@@ -150,7 +151,6 @@ td { border-bottom: 1px solid #f0f2f5; color: #475467; }
 tbody tr { transition: background-color .15s ease; }
 tbody tr:hover { background: #fafbfc; }
 .table-wrap { overflow-x: auto; }
-.table-actions { display: flex; justify-content: flex-end; margin-bottom: 1rem; }
 .success-message, .error-message { margin: 0 0 1.5rem; padding: .8rem 1rem; border-radius: 8px; }
 .success-message { color: #116c4b; background: #e8f7f0; }
 .error-message { color: #a4262c; background: #fdecec; }

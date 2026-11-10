@@ -1,11 +1,9 @@
 # Enhanzer Assignment
 
 Two-page purchase-bill application built with Angular 21, ASP.NET Core 8,
-Entity Framework Core, and SQL Server LocalDB.
+Entity Framework Core, and SQL Server.
 
 ## Prerequisites
-
-Install the following:
 
 - .NET 8 SDK
 - Node.js and npm
@@ -21,38 +19,32 @@ The default development database connection is:
 
 ## 1. Open the project
 
-From PowerShell:
-
 ```powershell
 cd C:\11AD\Enhanzer-Demo\EnhanzerAssignment
 ```
 
 ## 2. Create the database
 
-Start the LocalDB instance:
+Start LocalDB:
 
 ```powershell
 sqllocaldb start MSSQLLocalDB
 ```
 
-Run [Database/Database_Setup.sql](./Database/Database_Setup.sql) using
-SQL Server Management Studio, Azure Data Studio, or `sqlcmd`.
-
-With `sqlcmd`, run:
+Run the database setup scripts:
 
 ```powershell
 sqlcmd -S "(localdb)\MSSQLLocalDB" -E -i ".\Database\Database_Setup.sql"
+sqlcmd -S "(localdb)\MSSQLLocalDB" -E -i ".\Database\Purchase_Setup.sql"
 ```
 
-The script creates:
-
-- Database: `EnhanzerDB`
-- Table: `dbo.Location_Details`
-- Columns: `Id`, `Location_Code`, and `Location_Name`
+`Database_Setup.sql` creates `EnhanzerDB` and `dbo.Location_Details`.
+`Purchase_Setup.sql` creates `Purchase_Bills`, `Purchase_Bill_Items`, the
+bill-number sequence, and the `Create_Purchase_Bill` stored procedure.
 
 ## 3. Start the backend
 
-Open a terminal in the project root and run:
+Open a terminal in the project root:
 
 ```powershell
 cd .\Enhanzer.API
@@ -66,18 +58,11 @@ The backend listens on:
 - HTTPS: `https://localhost:7051`
 - HTTP: `http://localhost:5106`
 
-Open Swagger at:
-
-```text
-https://localhost:7051/swagger
-```
-
-If the browser displays a certificate warning, run
-`dotnet dev-certs https --trust` and restart the backend.
+Swagger is available at `https://localhost:7051/swagger`.
 
 ## 4. Start the frontend
 
-Open a second terminal and run:
+Open a second terminal:
 
 ```powershell
 cd C:\11AD\Enhanzer-Demo\EnhanzerAssignment\enhanzer-frontend
@@ -85,29 +70,34 @@ npm install
 ng serve
 ```
 
-Open the application at:
+Open the application at `http://localhost:4200`.
 
-```text
-http://localhost:4200
-```
+The frontend calls `https://localhost:7051/api`. If the backend port changes,
+update [environment.ts](./enhanzer-frontend/src/environments/environment.ts).
 
-The frontend is configured to call `https://localhost:7051/api`. If the
-backend port changes, update
-[environment.ts](./enhanzer-frontend/src/environments/environment.ts).
+## Navigating the pages
+
+The application has two pages:
+
+1. Open `http://localhost:4200/login` (or the root URL `/`).
+2. Enter valid credentials from the external POS login service and select
+   **Sign in**.
+3. Open `http://localhost:4200/purchase-bill`, or use the purchase-bill page
+   reached by the application after login.
+4. Select an item, choose a location in **Batch**, enter the cost, price,
+   quantities, margin, and discount, then select **Add to grid**.
+5. Add any additional items and select **Save purchase**.
+6. Select **Sign out** to return to the login page.
+
+The `/purchase-bill` route is protected. Without a valid JWT, it redirects to
+`/login`.
 
 ## Authentication flow
 
-1. Enter valid credentials from the external POS login service on the login
-   page.
-2. The backend sends the credentials to:
-
-   ```text
-   https://ez-staging-api.azurewebsites.net/api/External_Api/POS_Api/Invoke
-   ```
-
-3. On success, the backend saves any new locations and returns a JWT.
-4. The frontend stores the JWT and attaches it to API requests.
-5. The purchase-bill page loads locations from the protected endpoint.
+1. The login page sends credentials to the external POS login service.
+2. The backend saves any new locations and returns a JWT.
+3. The frontend stores the JWT and attaches it to API requests.
+4. The purchase-bill page loads locations from the protected endpoint.
 
 The login endpoint is:
 
@@ -128,13 +118,14 @@ Example request body:
 
 | Method | Endpoint | Authentication | Purpose |
 |---|---|---|---|
-| POST | `/api/auth/login` | No | Authenticate and return a JWT |
+| POST | `/api/auth/login` | None | Authenticate and return a JWT |
 | GET | `/api/locations` | Bearer JWT | Return saved locations |
+| POST | `/api/purchases` | Bearer JWT | Create a purchase bill with its items |
+| GET | `/api/purchases/{id}` | Bearer JWT | Return a saved purchase bill |
 
-`GET /api/locations` returns `401 Unauthorized` when called without a valid
-`Authorization: Bearer <token>` header. In Swagger, call the login endpoint,
-copy the returned token, select **Authorize**, enter the token, and then call
-the locations endpoint.
+Protected endpoints require an `Authorization: Bearer <token>` header. In
+Swagger, call the login endpoint, copy the returned token, select
+**Authorize**, enter `Bearer <token>`, and then call the protected endpoint.
 
 ## Frontend features
 
@@ -146,6 +137,7 @@ the locations endpoint.
 - Batch dropdown populated from `Location_Details`
 - Reactive total-cost and total-selling calculations
 - Purchase-bill item grid and summary metrics
+- Purchase-bill submission with success and error messages
 
 ## Purchase-bill calculations
 
@@ -176,26 +168,22 @@ npm run build
 
 ### SQL Server connection error
 
-If the API reports that SQL Server cannot be found:
-
 ```powershell
 sqllocaldb start MSSQLLocalDB
 ```
 
-Then confirm that [appsettings.json](./Enhanzer.API/appsettings.json) uses:
+Confirm that [appsettings.json](./Enhanzer.API/appsettings.json) uses:
 
 ```text
 Server=(localdb)\MSSQLLocalDB
 ```
 
-### `401 Unauthorized` from `/api/locations`
+### `401 Unauthorized`
 
-Authenticate through `/api/auth/login` first. The locations request must
-include the JWT as a bearer token.
+Authenticate through `/api/auth/login` first. Protected requests must include
+the JWT as a bearer token.
 
 ### HTTPS certificate warning
-
-Trust the local development certificate:
 
 ```powershell
 dotnet dev-certs https --trust
